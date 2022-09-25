@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibManagerApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20211223213020_SomeAdd")]
-    partial class SomeAdd
+    [Migration("20220914140002_InitMig")]
+    partial class InitMig
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -70,17 +70,11 @@ namespace LibManagerApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CoverUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("DateAdded")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -88,12 +82,10 @@ namespace LibManagerApp.Migrations
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PublisherId")
+                    b.Property<int>("Rate")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
@@ -161,7 +153,7 @@ namespace LibManagerApp.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Book_Language");
+                    b.ToTable("Book_Languages");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Country", b =>
@@ -206,22 +198,7 @@ namespace LibManagerApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Author", b =>
@@ -252,17 +229,6 @@ namespace LibManagerApp.Migrations
                     b.Navigation("Author");
 
                     b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Book", b =>
-                {
-                    b.HasOne("LibManagerApp.Data.Models.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Book_Author", b =>
@@ -353,11 +319,6 @@ namespace LibManagerApp.Migrations
             modelBuilder.Entity("LibManagerApp.Data.Models.Language", b =>
                 {
                     b.Navigation("Book_Languages");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Publisher", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

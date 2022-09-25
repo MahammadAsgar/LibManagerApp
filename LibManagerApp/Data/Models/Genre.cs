@@ -9,6 +9,5 @@ namespace LibManagerApp.Data.Models
 
         public List<Book_Genre> Book_Genres { get; set; }
 
-        public List<Author_Genre> Author_Genres { get; set; }
     }
 }

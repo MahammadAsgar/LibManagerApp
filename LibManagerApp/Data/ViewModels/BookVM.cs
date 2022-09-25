@@ -9,7 +9,6 @@ namespace LibManagerApp.Data.ViewModels
         public string Description { get; set; }
         public DateTime? PublishDate { get; set; }
         public int Rate { get; set; }
-        public int PublisherId { get; set; }
 
         public List<int> AuthorIds { get; set; }
         public List<int> GenreIds { get; set; }

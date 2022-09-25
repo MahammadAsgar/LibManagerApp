@@ -6,7 +6,5 @@ namespace LibManagerApp.Data.ViewModels
     {
         public string FullName { get; set; }
         public int CountryId { get; set; }
-
-        public List<int> GenreIds { get; set; }
     }
 }

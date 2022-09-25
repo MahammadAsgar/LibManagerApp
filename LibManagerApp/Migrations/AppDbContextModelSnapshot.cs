@@ -39,28 +39,6 @@ namespace LibManagerApp.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("LibManagerApp.Data.Models.Author_Genre", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("GenreId");
-
-                    b.ToTable("Author_Genres");
-                });
-
             modelBuilder.Entity("LibManagerApp.Data.Models.Book", b =>
                 {
                     b.Property<int>("Id")
@@ -80,15 +58,10 @@ namespace LibManagerApp.Migrations
                     b.Property<DateTime?>("PublishDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
@@ -156,7 +129,7 @@ namespace LibManagerApp.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Book_Language");
+                    b.ToTable("Book_Languages");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Country", b =>
@@ -201,22 +174,7 @@ namespace LibManagerApp.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Language");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Publisher", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Publishers");
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Author", b =>
@@ -228,36 +186,6 @@ namespace LibManagerApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Country");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Author_Genre", b =>
-                {
-                    b.HasOne("LibManagerApp.Data.Models.Author", "Author")
-                        .WithMany("Author_Genres")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("LibManagerApp.Data.Models.Genre", "Genre")
-                        .WithMany("Author_Genres")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Book", b =>
-                {
-                    b.HasOne("LibManagerApp.Data.Models.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Book_Author", b =>
@@ -319,8 +247,6 @@ namespace LibManagerApp.Migrations
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Author", b =>
                 {
-                    b.Navigation("Author_Genres");
-
                     b.Navigation("Book_Authors");
                 });
 
@@ -340,19 +266,12 @@ namespace LibManagerApp.Migrations
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Genre", b =>
                 {
-                    b.Navigation("Author_Genres");
-
                     b.Navigation("Book_Genres");
                 });
 
             modelBuilder.Entity("LibManagerApp.Data.Models.Language", b =>
                 {
                     b.Navigation("Book_Languages");
-                });
-
-            modelBuilder.Entity("LibManagerApp.Data.Models.Publisher", b =>
-                {
-                    b.Navigation("Books");
                 });
 #pragma warning restore 612, 618
         }

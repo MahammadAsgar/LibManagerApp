@@ -12,7 +12,6 @@ namespace LibManagerApp.Data.Models
 
         //navigation
         public List<Book_Author> Book_Authors { get; set; }
-        public List<Author_Genre> Author_Genres { get; set; }
 
     }
 }

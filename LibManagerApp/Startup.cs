@@ -1,5 +1,6 @@
 using LibManagerApp.Repository;
 using LibManagerApp.Services;
+using LibManagerApp.Services.Abstract;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,12 +35,11 @@ namespace LibManagerApp
 
             services.AddControllers();
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionStr));
-            services.AddTransient<BookService>();
-            services.AddTransient<PublisherService>();
-            services.AddTransient<LanguageService>();
-            services.AddTransient<CountryService>();
-            services.AddTransient<AuthorService>();
-            services.AddTransient<GenreService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IAuthorService,AuthorService>();
+            services.AddScoped<IGenreService,GenreService>();
 
             services.AddSwaggerGen(c =>
             {
